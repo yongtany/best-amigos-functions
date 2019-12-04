@@ -18,7 +18,9 @@ const {
   login, 
   uploadImage, 
   addUserDetails, 
-  getAuthenticatedUser 
+  getAuthenticatedUser,
+  getUserDetails,
+  markNotificationsRead
 } = require('./controllers/users');
 
 // Scream routes
@@ -36,6 +38,8 @@ app.post('/login', login);
 app.post('/user/image', FBAuth, uploadImage);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser);
+app.get('/user/:handle', getUserDetails);
+// app.post('/notifications', FBAuth, markNotificationsRead);
 
 exports.api = functions.region('asia-northeast1').https.onRequest(app);
 
@@ -65,6 +69,7 @@ exports.createNotificationOnLike = functions
         return;
       });
   });
+
 exports.deleteNotificationOnUnLike = functions
   .region('asia-northeast1')
   .firestore.document('likes/{id}')
@@ -79,6 +84,7 @@ exports.deleteNotificationOnUnLike = functions
         return;
       });
   });
+
 exports.createNotificationOnComment = functions
   .region('asia-northeast1')
   .firestore.document('comments/{id}')
