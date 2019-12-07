@@ -120,6 +120,7 @@ exports.createNotificationOnComment = functions
     } else return true;
   });
 
+
 exports.onScreamDelete = functions
 .region('asia-northeast1')
 .firestore.document('/screams/{screamId}')
